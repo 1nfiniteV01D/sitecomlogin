@@ -2,233 +2,95 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Receitas Deliciosas</title>
+  <title>Login – Receitas Deliciosas</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #ffe0cc;
       margin: 0;
-      background: #f8f8f8;
-      color: #333;
-    }
-    header {
-      background: #ff7043;
-      color: white;
-      padding: 15px;
-      text-align: center;
-    }
-    h1 { margin: 0; }
-
-    /* --- Carrossel --- */
-    .carousel {
-      position: relative;
-      max-width: 800px;
-      margin: 20px auto;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    .slides {
       display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-    /* Each slide occupies full width; add internal padding to keep images tidy */
-    .slides .slide {
-      flex: 0 0 100%;
-      box-sizing: border-box;
-      padding: 10px;
-    }
-    .slides img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      display: block;
-      border-radius: 8px;
-    }
-    .carousel button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 50%;
-    }
-    .prev { left: 10px; }
-    .next { right: 10px; }
-
-    /* --- Filtro e receitas --- */
-    .filtros {
-      text-align: center;
-      margin: 20px;
-    }
-    .filtros select {
-      padding: 8px;
-      font-size: 16px;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .receitas {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .receita {
+    .container {
       background: white;
-      padding: 15px;
+      padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
     }
-    .receita img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .receita h3 { margin: 10px 0 5px; }
 
-    /* --- Formulário --- */
-    .formulario {
-      background: #fff3e0;
-      padding: 20px;
-      margin: 20px;
-      border-radius: 12px;
+    h2 {
+      margin-bottom: 20px;
+      color: #ff7043;
     }
-    .formulario input, .formulario textarea, .formulario select {
+
+    input {
       width: 100%;
+      padding: 10px;
       margin: 10px 0;
-      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       font-size: 14px;
     }
-    .formulario button {
-      background: #ff7043;
-      color: white;
-      border: none;
+
+    button {
+      width: 100%;
       padding: 10px;
-      cursor: pointer;
+      background: #ff7043;
+      border: none;
+      color: white;
       font-size: 16px;
       border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #e55f32;
+    }
+
+    a {
+      display: block;
+      margin-top: 15px;
+      color: #ff7043;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🍲 Receitas Deliciosas</h1>
-  </header>
 
-  <!-- Carrossel -->
-  <div class="carousel">
-    <div class="slides">
-      <div class="slide"><img src="https://i.ytimg.com/vi/QFMxJWh3mqE/maxresdefault.jpg" alt="Receita 1"></div>
-      <div class="slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRetoKkKXzkc0xq_4nf1BHuNw2BdON36SKAQ&s" alt="Receita 2"></div>
-      <div class="slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQewxHQOjZxCwKAJYvyeF5BI9ZS6rkAbplScQ&s" alt="Receita 3"></div>
-    </div>
-    <button class="prev">❮</button>
-    <button class="next">❯</button>
-  </div>
+  <div class="container">
+    <h2>Login</h2>
 
-  <!-- Filtro -->
-  <div class="filtros">
-    <label for="categoria">Filtrar por categoria: </label>
-    <select id="categoria">
-      <option value="todas">Todas</option>
-      <option value="sobremesa">Sobremesas</option>
-      <option value="massa">Massas</option>
-      <option value="salada">Saladas</option>
-    </select>
-  </div>
+    <input type="text" id="nome" placeholder="Seu nome">
+    <input type="email" id="email" placeholder="Seu e-mail">
+    <input type="password" id="senha" placeholder="Sua senha">
 
-  <!-- Receitas -->
-  <div class="receitas" id="listaReceitas"></div>
+    <button onclick="entrar()">Entrar</button>
 
-  <!-- Formulário -->
-  <div class="formulario">
-    <h2>Adicionar Receita</h2>
-    <input type="text" id="titulo" placeholder="Nome da receita">
-    <select id="catReceita">
-      <option value="sobremesa">Sobremesa</option>
-      <option value="massa">Massa</option>
-      <option value="salada">Salada</option>
-    </select>
-    <input type="text" id="foto" placeholder="URL da imagem">
-    <textarea id="desc" rows="4" placeholder="Descrição da receita"></textarea>
-    <button onclick="adicionarReceita()">Adicionar</button>
+    <a href="index.html">Voltar ao site</a>
   </div>
 
   <script>
-    // --- Carrossel ---
-  const slides = document.querySelector(".slides");
-  const imagens = document.querySelectorAll(".slides .slide");
-    let index = 0;
+    function entrar() {
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
 
-    document.querySelector(".next").addEventListener("click", () => {
-      index = (index + 1) % imagens.length;
-      atualizarCarrossel();
-    });
-
-    document.querySelector(".prev").addEventListener("click", () => {
-      index = (index - 1 + imagens.length) % imagens.length;
-      atualizarCarrossel();
-    });
-
-    function atualizarCarrossel() {
-  const carousel = document.querySelector('.carousel');
-  const largura = carousel.clientWidth;
-  slides.style.transform = `translateX(${ -index * largura }px)`;
-    }
-
-    // Recalculate position on resize so the active slide stays centered
-    window.addEventListener('resize', () => {
-      atualizarCarrossel();
-    });
-
-    // --- Receitas ---
-    let receitas = [
-      {titulo: "Bolo de Chocolate", categoria: "sobremesa", foto: "https://s2-receitas.glbimg.com/j9WXDFp05XljuvekMlU2WR2VKfQ=/1280x0/filters:format(jpeg)/https://i.s3.glbimg.com/v1/AUTH_1f540e0b94d8437dbbc39d567a1dee68/internal_photos/bs/2022/1/N/aQD0fhQs2qW7qlFw0bTA/bolo-de-chocolate-facil.jpg", desc: "Um bolo fofinho e delicioso."},
-      {titulo: "Macarronada", categoria: "massa", foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNnptf4-EQOcdK63CkRMfthqZADxM19MbuJg&s", desc: "Macarrão ao molho de tomate fresco."},
-      {titulo: "Salada Colorida", categoria: "salada", foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3xZ2wf5d9M-0A7jgAODBZ47bBd_-zuKAng&s", desc: "Refrescante e nutritiva."}
-    ];
-
-    const lista = document.getElementById("listaReceitas");
-    const filtro = document.getElementById("categoria");
-
-    function mostrarReceitas() {
-      lista.innerHTML = "";
-      const cat = filtro.value;
-      receitas
-        .filter(r => cat === "todas" || r.categoria === cat)
-        .forEach(r => {
-          lista.innerHTML += `
-            <div class="receita">
-              <img src="${r.foto}" alt="${r.titulo}">
-              <h3>${r.titulo}</h3>
-              <p><b>Categoria:</b> ${r.categoria}</p>
-              <p>${r.desc}</p>
-            </div>
-          `;
-        });
-    }
-
-    filtro.addEventListener("change", mostrarReceitas);
-    mostrarReceitas();
-
-    // --- Adicionar Receita ---
-    function adicionarReceita() {
-      const titulo = document.getElementById("titulo").value;
-      const cat = document.getElementById("catReceita").value;
-      const foto = document.getElementById("foto").value;
-      const desc = document.getElementById("desc").value;
-
-      if(titulo && foto && desc) {
-        receitas.push({titulo, categoria: cat, foto, desc});
-        mostrarReceitas();
-        alert("Receita adicionada!");
-      } else {
+      if (!nome || !email || !senha) {
         alert("Preencha todos os campos!");
+        return;
       }
+
+      alert("Login realizado com sucesso! Bem-vindo, " + nome + "!");
+      window.location.href = "index.html"; // redireciona para o site
     }
   </script>
+
 </body>
 </html>
+
